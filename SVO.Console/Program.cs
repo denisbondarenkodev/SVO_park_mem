@@ -1,4 +1,4 @@
-﻿using System;
+﻿using System.Linq;
 
 namespace SVO.Console
 {
@@ -6,7 +6,7 @@ namespace SVO.Console
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            
         }
     }
 }
