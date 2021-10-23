@@ -39,9 +39,19 @@ namespace SVO.Console
                 inputTimetables[i]["Aircraft_Stand"] = GetAirClass(seats, airClasses);
             }
 
-            foreach (var air in inputTimetables) {
-                System.Console.WriteLine($"{air[""]} {air["flight_AC_PAX_capacity_total"]} = {air["Aircraft_Stand"]}");
-            }
+            // Определение стоимости руления самолета
+            var handlingRatesCosts = new CsvReader("../data/Handling_Rates_Private.csv")
+                .ToDictionary(x => x["Name"], x => int.Parse(x["Value"]));
+
+            var inputAirStands = new CsvReader("../data/Aircraft_Stands_Private.csv")
+                .ToArray();
+
+            var taxiingCostPerMinute = handlingRatesCosts["Aircraft_Taxiing_Cost_per_Minute"];
+            var taxiingCosts = inputAirStands
+                .Select(x => int.Parse(x["Taxiing_Time"]) * taxiingCostPerMinute)
+                .ToArray();
+
+            
         }
     }
 }
